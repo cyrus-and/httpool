@@ -6,6 +6,7 @@
 package httpool
 
 import (
+	"errors"
 	"net/http"
 )
 
@@ -17,8 +18,12 @@ type task struct {
 
 // Wrap accepts an ordinary http.Handler and produces another handler that uses
 // a self-balancing pool of goroutine of the given size to serve the incoming
-// requests.
+// requests. A pool size less than 1 will cause panic.
 func Wrap(handler http.Handler, poolSize int) http.Handler {
+	// require valid (and useful) pool size
+	if poolSize < 1 {
+		panic(errors.New("the pool size must be at least 1"))
+	}
 	// create poolSize goroutines
 	taskChans := make([]chan *task, poolSize)
 	readyChan := make(chan int)
