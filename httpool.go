@@ -20,7 +20,7 @@ type task struct {
 // a self-balancing pool of goroutine of the given size to serve the incoming
 // requests. A pool size less than 1 will cause panic.
 func Wrap(handler http.Handler, poolSize int) http.Handler {
-	// require valid (and useful) pool size
+	// require valid pool size
 	if poolSize < 1 {
 		panic(errors.New("the pool size must be at least 1"))
 	}
