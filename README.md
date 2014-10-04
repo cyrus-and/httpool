@@ -16,7 +16,7 @@ Example
 -------
 
 The following example shows how a regular `http.HandlerFunc` can be wrapped to
-use at most 100 Goroutines to execute the handler.
+use at most 100 Goroutines and 4 CPUs to execute the handler.
 
 ```go
 package main
@@ -25,6 +25,7 @@ import (
 	"github.com/cyrus-and/httpool"
 	"log"
 	"net/http"
+	"runtime"
 )
 
 func MyHandler(w http.ResponseWriter, r *http.Request) {
@@ -32,6 +33,7 @@ func MyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	runtime.GOMAXPROCS(4)
 	h := httpool.WrapFunc(MyHandler, 100)
 	log.Fatal(http.ListenAndServe(":8080", h))
 }
