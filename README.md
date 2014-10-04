@@ -38,3 +38,9 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", h))
 }
 ```
+
+Documentation
+-------------
+
+It can be found on [GoDoc](https://godoc.org/github.com/cyrus-and/httpool) or
+directly in the [source file](httpool.go).
