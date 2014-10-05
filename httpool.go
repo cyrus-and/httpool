@@ -11,8 +11,8 @@ import (
 )
 
 // Wrap accepts an ordinary http.Handler and produces another handler that uses
-// a self-balancing pool of goroutine of the given size to serve the incoming
-// requests. A pool size less than 1 will cause panic.
+// a pool of goroutine of the given size to serve the incoming requests. A pool
+// size less than 1 will cause panic.
 func Wrap(handler http.Handler, poolSize int) http.Handler {
 	// require valid pool size
 	if poolSize < 1 {
