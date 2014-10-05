@@ -24,9 +24,9 @@ func Wrap(handler http.Handler, poolSize int) http.Handler {
 	// to restrict the number of concurrent executions of the underlying
 	// handler.
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		pool <- token           // wait for a slot to be available
-		handler.ServeHTTP(w, r) // allow this request to proceed
-		<-pool                  // release the slot
+		defer func() { <-pool }() // release the slot on exit (even if the handler panics)
+		pool <- token             // wait for a slot to be available
+		handler.ServeHTTP(w, r)   // allow this request to proceed
 	})
 }
 
