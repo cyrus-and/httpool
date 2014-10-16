@@ -42,5 +42,6 @@ func main() {
 Documentation
 -------------
 
-It can be found on [GoDoc](https://godoc.org/github.com/cyrus-and/httpool) or
-directly in the [source file](httpool.go).
+The documentation is available at
+[GoDoc](https://godoc.org/github.com/cyrus-and/httpool) or directly in the
+[source file](httpool.go).
